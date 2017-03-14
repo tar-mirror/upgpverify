@@ -1,0 +1,52 @@
+From uwe@fjoras.ohse.de Fri Jan 19 13:47:20 2001
+Return-Path: <uwe@fjoras.ohse.de>
+Delivered-To: uwe@fjoras.ohse.de
+Received: (qmail 12777 invoked from network); 19 Jan 2001 13:47:20 -0000
+Received: from serak.ohse.de (HELO ohse.de) (qmailr@194.77.219.24)
+  by fjoras.ohse.de with SMTP; 19 Jan 2001 13:47:20 -0000
+Received: (qmail 21925 invoked by uid 1000); 19 Jan 2001 13:47:20 -0000
+Delivered-To: uwe@ohse.de
+Received: (qmail 27305 invoked from network); 19 Jan 2001 13:47:19 -0000
+Received: from fjoras.ohse.de (qmailr@194.77.219.23)
+  by serak.ohse.de with SMTP; 19 Jan 2001 13:47:19 -0000
+Received: (qmail 8440 invoked by uid 1000); 19 Jan 2001 13:47:14 -0000
+Date: Fri, 19 Jan 2001 13:47:14 +0000
+From: Uwe Ohse <uwe@ohse.de>
+To: uwe@ohse.de
+Subject: test
+Message-ID: <20010119134713.Q29280@ohse.de>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-md5;
+	protocol="application/pgp-signature"; boundary="Nq2Wo0NMKNjxTN9z"
+Content-Disposition: inline
+User-Agent: Mutt/1.2.5i
+X-Url: http://www.ohse.de/uwe/
+Status: RO
+Content-Length: 642
+
+--Nq2Wo0NMKNjxTN9z
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: base64
+
+MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwCjEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2
+Nzg5MAoxMjM0NTY3ODkwMTIK
+
+--Nq2Wo0NMKNjxTN9z
+Content-Type: application/pgp-signature
+Content-Disposition: inline
+
+-----BEGIN PGP SIGNATURE-----
+Version: 2.6.3ia
+Charset: noconv
+
+iQCVAwUBOoHJoVuGq+Vx7EI9AQHorgP/Qam1JwtG7L9iILKKtQAcn89RTnl9JEeg
+p3Uj75CZ4z1VXRn3TsIi90TAbwyGdkwW2DshW3FX3xZS2iq+kJVL+q8N96GJBCf7
+XEpeuutOk/5q8f7SzgFx/aJ7rO9TKe6c+cdnNZyAdmlPdYnP75DgYZ/wMHYyIbas
+1gD8FH50xw4=
+=XjOL
+-----END PGP SIGNATURE-----
+
+--Nq2Wo0NMKNjxTN9z--
+
+dGVzdAo9RkM9RjY9RTQKCj1GQz1GNj1FNAoK

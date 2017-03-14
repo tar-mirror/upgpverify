@@ -1,0 +1,130 @@
+2001-10-02	Uwe Ohse <uwe@fjoras.ohse.de>
+
+ui:       new option --max-len
+check:    check this
+version:  0.3.8
+
+2001-09-11	Uwe Ohse <uwe@fjoras.ohse.de>
+
+check:    docheck.pgp5init: pgpk misplaces secring/pubring on one machine.
+          move this manually ...
+internal: updated a number of scripts from the repository.
+version   0.3.6
+check:    docheck.gpginit: gpg 1.05 introduced a new option to allow 
+          secret key import. No so nice thing: it exits 0 when not using 
+		  this option, but does _not_ import the secret key.
+version   0.3.7
+
+2001-09-02	Uwe Ohse <uwe@fjoras.ohse.de>
+
+bug:      body without an empty dummy header might have been printed.
+ui:       switched to new packaging system.
+internal: updated many files from the repository.
+internal: use $PGP2 and $GPG in docheck.gpg* and docheck.pgp2*.
+
+version:  0.3.5
+
+2001-04-25	Uwe Ohse <uwe@fjoras.ohse.de>
+
+bug:      messages without an empty line after the message text
+          were mistreated. (but remember GIGO)
+version:  0.3.4
+ui:       changed the output on $MESSAGE_FD to start with 0 or more
+          MIME headers, followed by an empty line, followed by the
+		  more interesting stuff. This allows to deal with signed
+		  more structured MIME messages.
+check:    added checks for the change above.
+ui:       try to provide more useful error messages for pgp2.
+
+2001-04-13	Uwe Ohse <uwe@fjoras.ohse.de>
+
+ui:       added options --allow-x-pgp-sig and --require-x-pgp-sig.
+doc:      document them.
+check:    check them.
+
+2001-04-11	Uwe Ohse <uwe@fjoras.ohse.de>
+
+ui:       added option allow-is-default to upgpverify.
+doc:      document that.
+check:    check that.
+version:  0.3.3
+
+2001-03-26	Uwe Ohse <uwe@fjoras.ohse.de>
+
+bug:      need to escape lines starting with a minus sign ("-") in
+          signed MIME messages. Done in upgpverify.c.
+		  Impact: Failed to verify messages including, for example,
+		  a public key block.
+check:    added a check for that case.
+
+2001-02-23	Uwe Ohse <uwe@fjoras.ohse.de>
+
+version:  0.3.2
+internal: create argv for child process through functions. Don't do it by hand.
+ui:       disallow gpg to automatically retrieve keys from keyservers.
+          Added option to allow it again.
+ui:       allow input to be read from a pipe.
+ui:       allow upgpverify to be called with tmp. directory argument without
+          a program to start.
+check:    adjusted to above changes, added check of pipe handling.
+          no check for --allow-key-retrieve, though.
+doc:      updated upgpverify.pod.
+
+2001-02-14	Uwe Ohse <uwe@fjoras.ohse.de>
+
+version:  0.3.1
+doc:      added documentation for upgprules.
+doc:      added INSTALL.
+doc:      updates upgpverify.pod.
+check:    added testcase for "deny" rules.
+check:    added testcases for the upgprules program,
+check:    force "make check.{gpg,pgp2,pgp5} to include check.base.
+
+2001-02-13	Uwe Ohse <uwe@fjoras.ohse.de>
+
+version:  0.3.0
+ui:       added pgp2 decryption.
+check:    added pgp2 decryption checks. (testmail 19 to 22)
+bug:      upgpverify.c didn't handle messages without MIME-Version: Header
+portab:   work around the pgp2 limit of 50 characters in $HOME/$PGPPATH.
+          impact: "make distcheck" did fail due to long path.
+check:    added testcase: traditional style PGP message with quoted-printable.
+check:    added testcases: both style PGP messages with dash-escape.
+bug:      upgpverify must not do dash-escape handling. remove it.
+          (leftover from detached signature trials)
+internal: uoinstall updated to use scan_ulong, fmt_ulong.
+internal: removed all c++ style comments.
+internal: use GPL version of scan_long.c and scan_sign.c.
+internal: removed a number of unneeded files.
+
+2001-02-12	Uwe Ohse <uwe@fjoras.ohse.de>
+
+ui:      added pgp5 decryption.
+ui:      added decryption in traditional, non-MIME mode.
+check:   split up into different make targets or pgp2, pgp5, gpg.
+check:   added pgp5 and gpg decryption checks.
+
+2001-02-09	Uwe Ohse <uwe@fjoras.ohse.de>
+
+internal: changed check_*_sig calling convention to use structures.
+ui:       deal with long key ids and fingerprints, if available.
+          set $AUTH_LONG_KEYID, $AUTH_FINGERPRINT.
+ui:       added upgprules program to compile rules.
+internal: use --status-fd gpg option. massive rewrite of gpg routines.
+check:    added quite a number of tests.
+check:    changed gpg test output.
+
+2001-02-07	Uwe Ohse <uwe@fjoras.ohse.de>
+
+ui:       now supports base64.
+ui:       add pgp2, gpg support.
+internal: move check_*_sig into own files.
+bug:      r822_lex() now throws error on unterminated quoted strings.
+check:    added more test cases.
+doc:      wrote upgpverify.pod.
+version:  0.2.0
+ui:       create environment variables from email headers.
+
+2001-01-23	Uwe Ohse <uwe@fjoras.ohse.de>
+
+version:     0.1.0

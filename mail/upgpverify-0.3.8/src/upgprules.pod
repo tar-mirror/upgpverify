@@ -1,0 +1,123 @@
+=for html <h4><a href="../uwe.html">Uwe Ohse homepage</a></h4>
+<h3><a href="../upgpverify.html">upgpverify</a></h3>
+
+=head1 NAME
+
+	 upgprules - compile rules for upgpverify
+
+=head1 SYNOPSIS
+
+upgpverify CDB TMP [INPUT]
+
+=head1 DESCRIPTION
+
+B<upgpverify> verifies, if told to do so, whether the signing key
+matches the rules in I<CDB>.
+
+B<upgprules> compiles the rules in I<INPUT> (or stdin) into I<CDB>,
+a binary format suited for quick access by B<upgpverify>.
+
+B<upgprules> can be used while B<upgpverify> is running. It ensures that cdb
+is updated atomically. It does this by first writing the rules to tmp
+and then moving tmp on top of cdb. If tmp already exists, it is
+destroyed. The directories containing cdb and tmp must be writable to
+tcprules; they must also be on the same filesystem.
+
+If there is a problem with the input or with tmp, B<upgprules> complains
+and leaves cdb alone.
+
+The binary cdb format is portable across machines.
+
+=head1 RULE FORMAT
+
+I<INPUT> lines starting with a hash (#) are ignored, as are empty
+lines. All other lines are rules.
+
+Each rule consists of an identification, a colon, an instruction
+and a list of environment variable assignments.
+
+=head2 Identifications
+
+An identification is a tag character followed by a star (*) symbol
+and a free-form string. The later must not contain a colon (:).
+
+The tag character is used to distinguish the five different kinds of 
+identifications, which are listed in order of preference:
+
+=over 4
+
+=item f
+
+A I<fingerprint>, only available if GNU privacy guard (gpg) is used.
+
+=item l
+
+A I<long key id>, only available if GNU privacy guard (gpg) is used.
+
+=item s
+
+A I<short key id>.
+
+=item u
+
+A I<User ID>: A free-form string. Note that the I<User ID> may
+be choosen freely by an attacker (so watch out what you are doing).
+
+=item a
+
+An I<email address>. I<upgpverify> parses the user id of the signing
+key and looks up every email address found in it against the database.
+
+=back
+
+The preference mentioned above is my personal preference. While the
+email address may be quite handy it's important B<not> to forget
+that strange things might happen if you accept a public key which
+contains the email address of someone else - who might have more
+rights than the owner of the key (this also applies, to a lesser
+degree, to the user ID).
+
+=head2 Instructions
+
+There are two:
+
+=over 4
+
+=item allow
+
+=item deny
+
+=back 
+
+=head2 Environment Variable Assignments
+
+An environment variable assignment contains a comma (,),
+a variable name, an equal sign (=), a quote character,
+a value and another quote character. The quote character
+may be choosen freely. Another assignment may follow.
+
+The general form of an assignment is B<,var="value">, where
+I<"> may be any character not found in I<value>.
+
+=head1 EXAMPLE
+
+    upgprules etc/rules.cdb etc/rules.t <<EOF
+    a*uwe@ohse.de:allow,why=%address%
+    s*71EC423D:allow,why="short key id"
+    s*5B86ABE571EC423D:allow,why="long key id"
+    u*Uwe Ohse (RSA) <uwe@ohse.de>:allow,why=%uid%
+    f*D1076FB6107A40F11DD9E6C67336FF68:allow,why=/fingerprint/
+	EOF
+
+=head1 AUTHOR
+
+Uwe Ohse
+
+=begin man
+
+=head1 SEE ALSO
+
+upgprules(8)
+
+=end
+

@@ -1,0 +1,19 @@
+--- upgpverify prints error message with /dev/null input
+upgpverify: no from header
+100
+--- upgprules prints usage message without enough arguments
+upgprules: Give --help option for usage information
+100
+--- upgprules prints usage message without enough arguments
+upgprules: Give --help option for usage information
+100
+--- upgprules allows known identifiers, comments and empty lines
+0
+--- upgprules disallows unknown identifiers
+upgprules: bad input format: b*uwe@ohse.de:allow
+--- upgprules disallows wrong separators
+upgprules: bad input format: a:uwe@ohse.de:allow
+--- upgprules allows variables
+0
+--- upgprules allows deny
+0

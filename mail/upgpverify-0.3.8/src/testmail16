@@ -1,0 +1,52 @@
+From uwe@fjoras.ohse.de Sun Feb 11 09:41:34 2001
+Return-Path: <uwe@fjoras.ohse.de>
+Delivered-To: uwe@fjoras.ohse.de
+Received: (qmail 236 invoked from network); 11 Feb 2001 09:41:34 -0000
+Received: from serak.ohse.de (HELO ohse.de) (qmailr@194.77.219.24)
+  by fjoras.ohse.de with SMTP; 11 Feb 2001 09:41:34 -0000
+Received: (qmail 22561 invoked by uid 1000); 11 Feb 2001 09:41:34 -0000
+Delivered-To: uwe@ohse.de
+Received: (qmail 11900 invoked from network); 11 Feb 2001 09:41:33 -0000
+Received: from fjoras.ohse.de (qmailr@194.77.219.23)
+  by serak.ohse.de with SMTP; 11 Feb 2001 09:41:33 -0000
+Received: (qmail 24769 invoked by uid 1000); 11 Feb 2001 09:41:33 -0000
+Date: Sun, 11 Feb 2001 09:41:33 +0000
+From: Uwe Ohse <uwe@ohse.de>
+To: uwe@ohse.de
+Subject: encrypted message
+Message-ID: <20010211094133.B15422@ohse.de>
+Mime-Version: 1.0
+Content-Type: multipart/encrypted; protocol="application/pgp-encrypted";
+	boundary="QKdGvSO+nmPlgiQ/"
+Content-Disposition: inline
+User-Agent: Mutt/1.2.5i
+X-Url: http://www.ohse.de/uwe/
+Status: RO
+Content-Length: 1179
+
+
+--QKdGvSO+nmPlgiQ/
+Content-Type: application/pgp-encrypted
+Content-Disposition: inline; filename="msg.asc"
+
+Version: 1
+
+--QKdGvSO+nmPlgiQ/
+Content-Type: application/octet-stream
+Content-Disposition: inline
+
+-----BEGIN PGP MESSAGE-----
+Version: PGPfreeware 5.0i for non-commercial use
+MessageID: +oasYqb1YPDejG46zHC/XKrm7LrBvT2p
+
+qANQR1DBjgPzaJVR7g58LRACALZe87kIxczQRwCAncYcTqE3EV6MI0+t+QCbndFG
+f83EbIZiNquCIoLUDWWQUrjsCIe/AZGfUkagO01bNjJ0/mgB/iUuFZd3BBGYBCl8
+ZvLAJub1l4HGoAIw/umqinrsMMRRIJyaiOfBVnFVHrY9DP6j3qsf64i2XXBTujsa
+9iBALJDJd6sDUY51CDiWAEP/doLN27GbGU174DNtNMrr+vFKrBwG1ddUP7yuG9Oi
+q/P8XuBsS6amsmpozYMEh6UANCGiBswBU7l7CLsHjUh9AypzIb6qUf2O0n8RN5ZG
+5FHriOBzZjxsBrpa+ds/sBhqVjA2c83KBVUOY
+=j7go
+-----END PGP MESSAGE-----
+
+--QKdGvSO+nmPlgiQ/--
+

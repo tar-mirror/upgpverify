@@ -1,0 +1,22 @@
+from: x
+X: RSA-key, signature created with gnupg
+Mime-Version: 1.0
+Content-type: multipart/signed; boundary=bound
+
+--bound
+1
+2
+3
+--bound
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.4 (OpenBSD)
+Comment: For info see http://www.gnupg.org
+
+iQCVAwUBOuZgRluGq+Vx7EI9AQEkwwQArqbvTZbLkw5quReP2UKBVPl5M9iCOtc6
+aypcS59asjHCB4zIALEG1X3eKiXoHCn/Y/YTTKJVBe8zB+DDJ4Kqxjmvo2eKQsj6
+I2G+x8SG/SgmDS12TzQJBZaqjgidaaAsXszq3rQNTCofNodaxL+psGsgywV7VBhq
+kYQWoWXZXV8=
+=XQj3
+-----END PGP SIGNATURE-----
+--bound--

@@ -1,0 +1,45 @@
+#! /bin/sh
+
+. ./docheck.vars
+
+echo '--- upgpverify prints error message with /dev/null input'
+$O/upgpverify </dev/null; echo $?
+echo '--- upgprules prints usage message without enough arguments'
+$O/upgprules </dev/null; echo $?
+echo '--- upgprules prints usage message without enough arguments'
+$O/upgprules rules.cdb </dev/null; echo $?
+echo '--- upgprules allows known identifiers, comments and empty lines'
+$O/upgprules rules.cdb rules.tmp </dev/null <<EOF
+a*uwe@ohse.de:allow
+u*Uwe Ohse (RSA) <uwe@ohse.de>:allow
+
+f*0123456789abcdef0123456789abcdef:allow
+s*01234567:allow
+# comment
+l*01234567890abcdef:allow
+EOF
+echo $?
+echo '--- upgprules disallows unknown identifiers'
+$O/upgprules rules.cdb rules.tmp </dev/null <<EOF
+b*uwe@ohse.de:allow
+EOF
+echo '--- upgprules disallows wrong separators'
+$O/upgprules rules.cdb rules.tmp </dev/null <<EOF
+a:uwe@ohse.de:allow
+EOF
+echo '--- upgprules allows variables'
+$O/upgprules rules.cdb rules.tmp </dev/null <<EOF
+a*a@ohse.de:allow,ALLOWED=otrueo
+a*b@ohse.de:allow,ALLOWED=/true/
+a*c@ohse.de:allow,ALLOWED=\`true\`
+a*d@ohse.de:allow,ALLOWED='true',DISALLOWED='false'
+a*e@ohse.de:allow,ALLOWED='true',DISALLOWED="false"
+EOF
+echo $?
+echo '--- upgprules allows deny'
+$O/upgprules rules.cdb rules.tmp </dev/null <<EOF
+a*a@ohse.de:deny,ALLOWED=ofalseo
+a*b@ohse.de:deny
+EOF
+echo $?
+

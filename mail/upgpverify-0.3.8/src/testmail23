@@ -1,0 +1,36 @@
+Return-Path: <uwe@fjoras.ohse.de>
+Delivered-To: uwe@fjoras.ohse.de
+Date: Tue, 13 Feb 2001 18:59:14 +0000
+From: Uwe Ohse <uwe@ohse.de>
+To: uwe@ohse.de
+Subject: a second test
+Message-ID: <20010213185914.B12101@ohse.de>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-md5;
+	protocol="application/pgp-signature"; boundary="5vNYLRcllDrimb99"
+
+
+--5vNYLRcllDrimb99
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+- ------- Forwarded ... -------
+
+
+--5vNYLRcllDrimb99
+Content-Type: application/pgp-signature
+Content-Disposition: inline
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.4 (OpenBSD)
+Comment: For info see http://www.gnupg.org
+
+iQCVAwUBOomEAluGq+Vx7EI9AQFrawQAnYSgWvHBrkQophYHhLUGMDX4xyDOlkhZ
+E3xk/Xzau2uSjpSvw4gDtZtGH3Qf59bJgDOZABOiS2wRZ4e6AVq3gN+JgK/pt/I4
+ZFEs7914Ozf4JSZ/JZYielzh5BjVks7PsB7uJxTJT/8QTc8ntAfoADn/F3VB0Eh9
+ISzH1Vf20oI=
+=oggZ
+-----END PGP SIGNATURE-----
+
+--5vNYLRcllDrimb99--
+

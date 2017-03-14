@@ -1,0 +1,30 @@
+From uwe@fjoras.ohse.de Fri Jan 19 13:47:20 2001
+X: DSA-Key, signature created with gnupg
+mime-versioN: 1.0
+content-type: multipart/signed; boundary=abc ; micalg=pgp-sha1 ; protocol="application/pgp-signature"
+From: Uwe Ohse <uwe@ohse.de>
+To: uwe@ohse.de
+Subject: test
+Message-ID: <20010119134713.Q29280@ohse.de>
+Status: RO
+Content-Length: 269
+Lines: 17
+
+--abc
+1
+2
+3
+--abc
+Content-Type: application/pgp-signature
+Content-Disposition: inline
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.4 (OpenBSD)
+Comment: For info see http://www.gnupg.org
+
+iD8DBQE65mDiw7+Ygb6/ZrARAhS0AKCXCZ1hKZGuXVSYk663ExYQbhG9ogCcC4Gn
+nkMp0tiGkJGZr+ZMU/gx9f0=
+=Gvng
+-----END PGP SIGNATURE-----
+
+--abc--

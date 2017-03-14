@@ -1,0 +1,63 @@
+#! /bin/sh
+
+package/packagecheck || exit 1
+
+pgp2 --please-fail 2>/dev/null
+if test x$? = x5 ; then	
+	pgp2=pgp2
+else
+	pgp --please-fail 2>/dev/null
+	if test x$? = x5 ; then	
+		pgp2=pgp
+	fi
+fi
+pgpv --please-fail 2>/dev/null
+if test x$? = x7 ; then	
+	pgp5=pgpv
+fi
+gpg --please-fail 2>/dev/null
+if test x$? = x2 ; then
+	gpg=gpg
+else
+	gnupg --please-fail 2>/dev/null
+	if test x$? = x2 ; then
+		gpg=gnupg
+	fi
+fi
+if test x$gpg = x ; then :
+else
+	# oh hell, 1.0.4 exits with 2 in case of EOF ...
+	out=`$gpg --no-auto-key-retrieve </dev/null 2>&1`
+	if test x$? = x2 ; then
+		case "$out" in
+		*eof) ;;
+		*) gpg=
+		esac
+	fi
+fi
+echo Found $pgp2 - $pgp5 - $gpg
+
+if test "x$pgp2" = x ; then
+	:
+else
+	targets="$targets check.pgp2"
+	vars="$vars PGP2='$pgp2'"
+fi
+if test "x$pgp5" = x ; then
+	:
+else
+	targets="$targets check.pgp5"
+	vars="$vars PGP5='$pgp5'"
+fi
+if test "x$gpg" = x ; then
+	:
+else
+	targets="$targets check.gpg"
+	vars="$vars GPG='$gpg'"
+fi
+if test "x$targets" = x ; then
+	echo "Neither pgp2 nor pgp5 nor gpg found. No test run"
+	exit 0
+fi
+cd compile || exit 1
+eval exec env - PATH="$PATH" $vars make check.init $targets check.clean

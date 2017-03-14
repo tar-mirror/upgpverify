@@ -1,0 +1,14 @@
+mail_in.c: GPL, uo
+mail_in.h: GPL, uo
+mime.h: GPL, uo
+mime_b64.c: GPL, uo
+mime_ct.c: GPL, uo
+mime_qp.c: GPL, uo
+nowarn.h: GPL, uo
+read_2_fd.c: GPL, uo
+sub_gpg.c: GPL, uo
+sub_pgp2.c: GPL, uo
+sub_pgp5.c: GPL, uo
+upgprules.c: GPL, uo
+upgpverify.c: GPL, uo
+upgpverify.h: GPL, uo

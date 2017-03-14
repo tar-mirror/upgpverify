@@ -1,0 +1,37 @@
+#! /bin/sh
+
+if test "x$PGP2" = x ; then PGP2=pgp ; fi
+
+. docheck.vars
+
+PROGOPT="--pgp2"
+EXECOPT="--exec=$PGP2"
+MOVE_PUBRING_AWAY="mv .pgp/pubring.pgp pubring.away"
+MOVE_PUBRING_BACK="mv pubring.away .pgp/pubring.pgp"
+ALTERNATIVE_PUBRING="pubring.away"
+# Note: this is needed. pgp2 only honors $HOME (or $PGPPATH) if it's
+# shorter than 50 characters, which isn't the case in _at least_ the
+# self check during "make dist". This was too much:
+#   /home/uwe/work/upgpverify/upgpverify-0.3.0/tmp.check (52)
+# This took me quite some time to figure out.
+
+EXTRAOPT="--secring $N/.pgp/secring.pgp --pubring $N/.pgp/pubring.pgp"
+
+. $O/docheck.sub
+
+echo "--- upgpverify --pgp2 decryption works in MIME mode"
+cat >rules.txt <<EOF
+s*71EC423D:allow,TEST="TESTRESULT"
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt 
+e --passphrase-fd 9 -r rules.cdb tmp $PRINTENV <$O/testmail19 9<passphrase \
+	| sort  | egrep -v "^(PATH|HOME|MESSAGE_FD)"
+echo "--- upgpverify --pgp2 decryption works in MIME mode with corrupted message"
+e --passphrase-fd 9 -r rules.cdb tmp $PRINTENV <$O/testmail20 9<passphrase
+echo $?
+echo "--- upgpverify --pgp2 decryption works in traditional mode"
+e --passphrase-fd 9 -r rules.cdb tmp $PRINTENV <$O/testmail21 9<passphrase \
+	| sort  | egrep -v "^(PATH|HOME|MESSAGE_FD)"
+echo "--- upgpverify --pgp2 decryption works in trad. mode with corrupted message"
+e --passphrase-fd 9 -r rules.cdb tmp $PRINTENV <$O/testmail22 9<passphrase
+echo $?

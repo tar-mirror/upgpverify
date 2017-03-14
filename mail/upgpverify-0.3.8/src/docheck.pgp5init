@@ -1,0 +1,116 @@
+#! /bin/sh
+
+. docheck.vars
+
+# create PGP key ring
+mkdir .pgp || true
+echo >.pgp/pgp.cfg
+dd if=/dev/zero of=.pgp/randseed.bin count=1 bs=512 2>/dev/null
+
+cat >key1 <<EOF
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: PGPfreeware 5.0i for non-commercial use
+
+mQCNAzKnLSsAAAEEAMis0ZvdyKuBT3ri+AaJyqCsCH4jV9SfUBrVnK3w2YO4E9dQ
+CFWju+Nlvz3zEwQw8HPmP1CSa9mPDKqvRv/H+aWXS+K9u/niaTnQpHxlS2OOUcOT
+PN4X/wolZAtGErFg+ORNZ2o6Mgk9txgR+K2zWvRUlMziCvscaVuGq+Vx7EI9AAUR
+tBZVd2UgT2hzZSA8dXdlQG9oc2UuZGU+iQCVAwUQM8P7B1uGq+Vx7EI9AQEx+AQA
+qUNiA2KQk00yFvOXoTqZtBFocJlcXUd/jDz0thL4lZ2Bq4vEnDSGomnlumkDxy5W
+j0RvAQQULUQheXAZfE6kcqlUapIbQ9fD34A3MJ8HcJLFUOzhIfFwxEsXTFWJll8S
+SGVbXhi6YDYxxJNHwGzLVLxoIvyVj1R7qFgENFWZjO60G1V3ZSBPaHNlIDx1d2VA
+Y3NsLWdtYmgubmV0PokAlQMFEDpCilRbhqvlcexCPQEBmncEAJgckptm4jtd/f/k
+/EGNstIfJoKRpiBoUYy7SqthQ/g081cakyMKeaNB8xwOKAKD/9D8JFqPYuabUHjw
+j/iGXWy60TgS/vkQWG4RQW0KwcLVMnDHeMkYPykaL5bzYHihn1Jeqv5ovLmvgUJw
+v+G+88odRiKLWicqha2NyyFkhk6x
+=Ndj2
+-----END PGP PUBLIC KEY BLOCK-----
+EOF
+yes | pgpk +BatchMode -a key1 >/dev/null 2>/dev/null
+
+# a 768 bit DSA key
+cat >key2 <<EOF
+# contained here just to have it somewhere.
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+Version: GnuPG v1.0.4 (OpenBSD)
+Comment: For info see http://www.gnupg.org
+
+/QEjlQFvBDqDnJsRAwCyx/Y64veqkS/Sr9kM85l2cRhTNe+3ehfJjMS9X0m38CL6
+rDkXU/8xjEjwWQSTqVBwffaVRhniA8pBpXVl+zAwiIzpDQjDEIR1tCJgzwUSmI9L
+LMAPrcOOD6o3e02zrr8AoIKxFFE2GtsY9E3Ks/36W7e+jDHrAv9UzzBJAVVfVfcU
+xG6X6r6O7zWsc+gr4BN2HLNqrByAeN771I4U92pnj9Xx8hi1FuIcZiUVEq6ZqMlu
+ryOercJRP7laLlVU6r8bMYW4KE2KWktpYZI7BV4yLUu3uGNCW1QC+wc8LiFjL1pv
+NTEhTWPOxQDJ3WMokqZFREZ2/Y9NGkBGCwUdMdGb1QhoIPyU+iIbqX+/8/o5tXTo
+oEC6jXKA9RhlXnmP+N+3pZoLrhBvO9AZEu5maUTeenhJ4UzyYqAs4/8DAwLQEk5T
+0qAAaGDsteSbCyhskOnDFFBEvX9IU0vMaC8B7ArOXmc2M1cvPf0sIzpEU0FfZmFj
+dG9yOgAA30UCu6MW3a1w2p1AEcKOp/OYxRSAKJco7DiDj0W0MHNjazEgKFNlbGYg
+Q2hlY2sgS2V5MSkgPHNjazFAdXBncHZlcmlmeS5pbnZhbGlkPohXBBMRAgAXBQI6
+g5ybBQsHCgMEAxUDAgMWAgECF4AACgkQ6mfKSlq1ptgB4gCcD4CU4MpGQuNoD3mI
+/zfldmUdqEkAmwZ/G9ELsFsGlfr/hT1X5IjvKsnmnL0EOoOcmxACAO0fR+gAJvGs
+bXdN0u2Y6dkJvHPHvVcEE5tCcJM86j9MjFH8cMowcftZqIZLK2Xl506QuHhUZM6A
+VFlRx/DNgP8AAwUCAJuMEG1FUnWyFm+lAFAQ98byeuliaUEvmzKrvMyntWDpoNEK
+njoUEvuDaVSi+bSkree1x8yjvHQnS8jGnzjbdqP/AwMC0BJOU9KgAGhg8OatCJhG
+99NkZnNJ031M+qyOxCbNJOezwxp2qX2noYsVXy+IRgQYEQIABgUCOoOcmwAKCRDq
+Z8pKWrWm2FfSAJ0ST13M+wkwy9o04TQrS1VmtpFFCACaAlg1RnzPK3Hvhoj9dPng
+Ey37yxM=
+=wOld
+-----END PGP PRIVATE KEY BLOCK-----
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.0.4 (OpenBSD)
+Comment: For info see http://www.gnupg.org
+
+/QEjmQFCBDqDnJsRAwCyx/Y64veqkS/Sr9kM85l2cRhTNe+3ehfJjMS9X0m38CL6
+rDkXU/8xjEjwWQSTqVBwffaVRhniA8pBpXVl+zAwiIzpDQjDEIR1tCJgzwUSmI9L
+LMAPrcOOD6o3e02zrr8AoIKxFFE2GtsY9E3Ks/36W7e+jDHrAv9UzzBJAVVfVfcU
+xG6X6r6O7zWsc+gr4BN2HLNqrByAeN771I4U92pnj9Xx8hi1FuIcZiUVEq6ZqMlu
+ryOercJRP7laLlVU6r8bMYW4KE2KWktpYZI7BV4yLUu3uGNCW1QC+wc8LiFjL1pv
+NTEhTWPOxQDJ3WMokqZFREZ2/Y9NGkBGCwUdMdGb1QhoIPyU+iIbqX+/8/o5tXTo
+oEC6jXKA9RhlXnmP+N+3pZoLrhBvO9AZEu5maUTeenhJ4UzyYqAs47Qwc2NrMSAo
+U2VsZiBDaGVjayBLZXkxKSA8c2NrMUB1cGdwdmVyaWZ5LmludmFsaWQ+iFcEExEC
+ABcFAjqDnJsFCwcKAwQDFQMCAxYCAQIXgAAKCRDqZ8pKWrWm2AHiAJ418HrjvfPl
+WtTFWr3+eBjLYSafzQCfYVcYhIXzAaPU9hH4PlTpfc0h+uW4jQQ6g5ybEAIA7R9H
+6AAm8axtd03S7Zjp2Qm8c8e9VwQTm0JwkzzqP0yMUfxwyjBx+1mohksrZeXnTpC4
+eFRkzoBUWVHH8M2A/wADBQIAm4wQbUVSdbIWb6UAUBD3xvJ66WJpQS+bMqu8zKe1
+YOmg0QqeOhQS+4NpVKL5tKSt57XHzKO8dCdLyMafONt2o4hGBBgRAgAGBQI6g5yb
+AAoJEOpnykpatabYV9IAn3m1ETRGVL43tmYs65U0uiHUOSZpAJ43st0B7nA74d9Y
+9XrhekypCIC6gg==
+=vU97
+-----END PGP PUBLIC KEY BLOCK-----
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.0.4 (OpenBSD)
+Comment: For info see http://www.gnupg.org
+
+mQGiBDp9WzYRBACnLDHUk9oYM9ZjlzKbrvCZhBBB6rA+zIcpTS+ddBvwfzbrnbhA
+YCjSPjeemALwxNfyV4GSgYtS8MMouE6MzLD/N/ecrNB+sKxNCdXDJbbckpBl0D9g
+8kUXfT0SaH0/dM7QcVIcziGs2hLD5e3NHJ/nfuCk58HGwlICFIDvn8lvmwCg+MR6
+zQk2AJ522NgIEgC5ftfuIwEEAIRjGWWaosm4MX6B2ftBjIZ8jLYDYPnuccJqbV3d
+3sK8wwi/gFNGRMmTsAk6HkNvZuE0mwd2qIlgaUeBU9to/C2Ps6muk8U/eQHyuNao
+60EMnRmeHRSxJkl5D3Jt1jkKcbi+cDvQWw6S63K0FxdrsCotujxbElAUiuNFnBjd
+6pQnA/9lcEv8KxLMfjyq2HF7zxeZUMaD52SpyCy1HfC9QtQOXU8jV1IIZjzABHBf
+KrDXJF+panoTRiXqcQbYFa5iwyjaQxsGyMYNjzBPfWOcBAV6JYa/RDvn3yI1dHhe
+AXYNEOAILN1LbC4YYofYJvxhBtWRzkv92B/ry8kA2CpAzkxX27QWVXdlIE9oc2Ug
+PHV3ZUBvaHNlLmRlPoh/BBMRAgA/BQI6fVs2BQsHCgMEAxUDAgMWAgECF4AnFIAA
+AAAAAwAbVVJMU2VlIGh0dHA6Ly93d3cub2hzZS5kZS91d2UvAAoJEMO/mIG+v2aw
+pWMAoIWypEAF/DtCTD2Eeir7multcsrMAJ4g0PwKvpVooczwu0l6z/u4cJZo/4kA
+lQMFEDqDiw1bhqvlcexCPQEBRPMEAI4XOx2UN0MeZtMTdrbI3H8OCsEp0x6dqnaj
+rEKAVfw+9/z3JXlFDn24QmQ0Bka8h8cye5BhWVDbmXkAC8Dgp0diEAk0UmgJMJPj
+gotOBV4i545esOIYuT0+GwwGXPVXPh0GhsuFg1ncORxPekVGGbWKn8xqaeGB8ubg
+SEHM+xm6uQENBDp9WzcQBAD6AJ+Rp1+oa/bpiDewyCu1AN0b9siUIorreq8IxeLv
+kP/dMPrVgYWq08wZWxZL39U5GkQ5OJxHY5+QLeFCXgA+NbYWU8HIONDetg2wp3+q
+vJcVzPFsX1ZFdMWzbghu/afZn0z0T1c3DvOhAlImDUVanubHLDymG7m3RT/gNw47
+4wADBQQA9o60cTJ5G5ZwdzDJSMyOeIyw7v2C26g69O/hQz8XxNLSacdJlYKsp6fK
+0ycNm9Yh/YZfXoePBAUHHrSGfryStBZ4VzqGz16NqRmYE+eNUlPG3ekvnRjAoc3t
++6VVUqfpMdJLl0vt23cdtz5rS5AWjwvQ/kwW2KMFDA5tOG45oD6IbgQYEQIALgUC
+On1bNycUgAAAAAADABtVUkxTZWUgaHR0cDovL3d3dy5vaHNlLmRlL3V3ZS8ACgkQ
+w7+Ygb6/ZrCzPACgvwAT0mW2ETxxrobymULnUGzMZQ4AnAuQvCdIAgrMKGjw/TXC
+iqGi7eia
+=GJZj
+-----END PGP PUBLIC KEY BLOCK-----
+EOF
+yes | pgpk +BatchMode -a key2 >/dev/null 2>/dev/null
+echo trivial >passphrase
+
+# i needed to do this one one machine with pgp5? Huh?
+mv pubring.pkr .pgp 2>/dev/null || true
+mv secring.skr .pgp 2>/dev/null || true

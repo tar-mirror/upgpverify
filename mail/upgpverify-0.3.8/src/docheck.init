@@ -1,0 +1,6 @@
+#! /bin/sh
+
+rm -rf tmp.check
+mkdir tmp.check || exit 1
+mkdir tmp.check/tmp || exit 1
+

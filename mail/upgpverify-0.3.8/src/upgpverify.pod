@@ -1,0 +1,390 @@
+=for html <h4><a href="../uwe.html">Uwe Ohse homepage</a></h4>
+<h3><a href="../upgpverify.html">upgpverify</a></h3>
+
+=head1 NAME
+
+	 upgpverify - PGP wrapper for verifying messages
+
+=head1 SYNOPSIS
+
+upgpverify [options] [tmp [program [arguments]]]
+
+=head1 DESCRIPTION
+
+B<upgpverify> verifies a PGP signed or encrypted and signed message
+on stdin, checks the user id or key id against a database, if wanted,
+and starts another program, providing the payload of the PGP message
+on an own file descriptor.
+
+B<upgpverify> is designed to work under qmail. It can handle MIME 
+and non-MIME (traditional PGP format) messages. It handles 
+base64 and quoted-printable.
+
+I<options> is a is a series of getopt or getopt_long style options. See
+below for more information.
+
+I<tmp> is a temporary directory. It must not be world writable.
+You must provide I<tmp> if you want B<upgpverify> to call another program
+or if the input is read from a pipe.
+
+B<upgpverify> since version 0.3.2 handles input from pipes by creating
+a temporary file.
+
+=head2 Access Control
+
+Access control is done in the following order:
+
+=over 4
+
+=item 1.
+
+B<upgpverify> tries to verify the PGP signature. It exits with an
+appropriate exit code (100 or 111) if this fails. This means the
+signers public key has to be in the key ring used.
+
+=item 2.
+
+If the I<--rules> option is used then:
+
+=over 8
+
+=item 2a.
+
+The signers fingerprint is checked against the rules database. Goto 2g
+if successful.
+
+This can only be checked with GPG.
+
+=item 2b.
+
+The signers long key id is checked against the rules database. Goto 2g
+if successful.
+
+This can only be checked with GPG.
+
+=item 2c.
+
+The signers short key id is checked against the rules database. Goto 2g
+if successful.
+
+=item 2d.
+
+The full user id of the key is checked against the rules
+database.  Goto 2g if successful.
+
+=item 2e.
+
+The user id is parsed and all email addresses found therein
+are checked against the rule database. Goto 2g if successful.
+
+=item 2f.
+
+If the option I<--allow-is-default> is not used then access will
+be denied, otherwise goto 2g.
+
+=item 2g.
+
+If the action of the matching rules is I<deny> then B<upgpverify> will
+exit with code 100; otherwise (if the action is I<accept>) then
+the message is accepted, and a number of environment variables
+may be set.
+
+=back
+
+=back
+
+=head2 Payload Handling
+
+The payload is the signed part of the message. 
+The client program may read the payload of the message from the
+file descriptor denoted by the environment variable I<MESSAGE_FD>
+(the full message is available on file descriptor 0).
+
+B<upgpverify> removes all traces from quoted-printable and
+base64 from the payload if the payload isn't a structured 
+MIME entity.
+
+The payload starts with zero or more headers containing MIME information,
+followed by an empty line, followed by a text. If there's no MIME
+information than the payload starts with an empty line.
+
+=head1 OPTIONS
+
+=over 8
+
+
+=item -G, --gpg
+
+Use GNU privacy guard to verify messages. This is the default anyway. 
+
+B<upgpverify> expects the GPG program to reside in $PATH and to be named 
+I<gpg>. If this true you might use the I<--program> option to select
+a suitable binary.
+
+=item -2, --pgp2
+
+Use PGP version 2.6.3 to verify messages.
+
+B<upgpverify> expects the PGP program to reside in $PATH and to be named 
+I<pgp>. If this true you might use the I<--program> option to select
+a suitable binary.
+
+=item -5, --pgp5
+
+Use PGP version 5 to verify messages.
+
+B<upgpverify> expects the PGP signature verification program to reside 
+in $PATH and to be named 
+I<pgpv>. If this true you might use the I<--program> option to select
+a suitable binary.
+
+=item -e, --exec=PROGRAM
+
+Use this I<PROGRAM> instead of the default to check the
+messages.
+
+=item -G, --allow-key-retrieve
+
+Allow I<GPG> to get missing keys from a key server.
+I<GPG> by default tries to retrieve missing public keys
+from a key server. The B<upgpverify> default since version
+0.3.2 is to disable this.  
+
+If you want to automatically retrieve keys then use                             this option, which is ignored for I<PGP2> and I<PGP5>.
+
+=item -P, --passphrase-fd=FD
+
+This option is passed to the program used to decrypt a
+message. I<FD> is a file handle, the external program
+will try to read a passphrase from it.
+
+Use like this:
+
+  | upgpverify -P 3 tmp payload_handling_program 3<secret/passphrase 
+
+where I<secret/passphrase> is a file containing the passphrase of the
+key.
+
+=item -p, --pubring=PUBRING
+
+Select public key ring. I<PUBRING> stands for a file name.
+
+Note that PGP5 (not GPG) will read the key ring in
+$HOME/.pgp anyway, unless it's nonexistant.
+
+Note that at least PGP2 has silly limitations on the 
+length of the I<PGPPATH> and I<HOME> environment variables,
+if they are more than 50 characters long then pgp version 2
+will ignore them.
+
+=item -r, --rules=RULESFILE
+
+Follow the rules compiled into I<RULESFILE> by upgprules.
+These rules may specify setting environment variables or denying
+access from certain keys.
+
+=item -A, --allow-is-default
+
+If now rule matches then allow access anyway. The default, if
+this option is not used, is to deny access.
+
+=item -s, --secring=SECRING
+
+Select secret key ring. I<SECRING> stands for a file name.
+
+Note that PGP5 (not GPG) will read the key ring in
+$HOME/.pgp anyway, unless it's nonexistant.
+
+Note that at least PGP2 has silly limitations on the 
+length of the I<PGPPATH> and I<HOME> environment variables,
+if they are more than 50 characters long then pgp version 2
+will ignore them.
+
+=item -x, --allow-x-pgp-sig
+
+=item -X, --require-x-pgp-sig
+
+These options turn on handling of articles with an I<X-PGP-Sig>
+header. This is a special format of PGP signed messages backwards
+compatible with the existing news standards which allows the
+signing of header fields (to guard against replay attacks with 
+of control messages).
+
+The I<--allow-x-pgp-sig> turns on handling of these articles,
+but also handles other kinds of signatures. The I<--require-x-pgp-sig>
+mode doesn't handle any other kind of signature.
+
+=item -M, --max-len BYTES
+
+Allow incoming messages up to BYTES bytes. Default is 1000000.
+Use a value of 0 to disable length checks.
+
+=item       --version             
+
+Show version information.
+
+
+=item       --help                
+
+Show a list of options or the long help on one.
+
+The use with an argument shows the long helptext
+of that option, without an argument it will list
+all options.
+
+=item       --longhelp            
+
+Show longer help texts for all or one variable
+
+The use with an argument shows the long help for
+this option, without arguments it shows the long
+description of all options.
+
+=back
+
+=head1 ENVIRONMENT
+
+B<upgpverify> sets the following environment variables:
+
+=over 8
+
+=item HEADER_FROM
+
+This environment variable contains the I<from> mail header.
+All characters with ASCII code below 32 are deleted.
+
+No MIME handling is done on this header.
+
+This environment variable is under the influence of a possibly
+malicious entity.
+
+=item HEADER_SENDER
+
+This environment variable contains the I<sender> mail header.
+It's treated like I<HEADER_FROM>, above.
+
+Note that you might be more interested in the variables 
+set by qmail (see the qmail-command manual page for more
+information).
+
+=item HEADER_TO
+
+This environment variable contains the I<to> mail header.
+It's treated like I<HEADER_TO>, above.
+
+Note that you might be more interested in the variables 
+set by qmail (see the qmail-command manual page for more
+information).
+
+=item HEADER_SUBJECT
+
+This environment variable contains the I<subject> mail header.
+It's treated like I<HEADER_FROM>, above.
+
+=item HEADER_CC
+
+This environment variable contains the I<CC> mail header.
+It's treated like I<HEADER_FROM>, above.
+
+=item HEADER_REPLY_TO
+
+This environment variable contains the I<Reply-To> mail header.
+It's treated like I<HEADER_FROM>, above.
+
+=item HEADER_FOLLOWUP_TO
+
+This environment variable contains the I<Followup-To> mail header.
+It is only set if the message is a news article with I<X-PGP-Sig>
+header and handling of that form of PGP signature has been
+turned on.
+It's otherwise treated like I<HEADER_FROM>, above.
+
+=item HEADER_NEWSGROUPS
+
+This environment variable contains the I<Followup-To> mail header.
+It is only set if the message is a news article with I<X-PGP-Sig>
+header and handling of that form of PGP signature has been
+turned on.
+It's treated like I<HEADER_FROM>, above.
+
+=item MESSAGE_FD
+
+The file descriptor the PGP payload may be read from.
+
+=item AUTH_FINGERPRING
+
+The fingerprint of the signer key (only available with gpg)
+
+=item AUTH_KEYID
+
+The key id of the signer key.
+
+=item AUTH_LONG_KEYID
+
+The long key id of the signer key (only available with gpg)
+
+
+=item AUTH_USERID
+
+The user id of the signer key.
+
+=back
+
+Aside from these environment variables it's possible to set a 
+number of further environment variables in the rules file.
+
+
+=head1 EXAMPLES
+
+=head2 Keep Out Messages From Unknown Sources
+
+.qmail:
+
+    |upgpverify 
+	|./Maildir/
+
+=head2 Execute Shell Commands
+
+	| upgpverify --ring=special.pub tmpdir sh -c \
+	  'exec /bin/sh - <&$MESSAGE_FD'
+
+on one line, please. It's not necessarily a sign of security to do
+this.
+
+=head1 BUGS
+
+Doesn't get fingerprint and long key id from PGP5 and PGP2. There's
+a way to get the fingerprint: get the short key, list the fingerprint 
+through pgpk -ll, and parse that. I consider this ugly as hell. 
+
+=head1 THOUGHTS
+
+=over 4
+
+=item *
+
+At least gpg doesn't check for write errors in a lot of cases.
+
+=item *
+
+Should be able to pass I<unchanged> (as q-p or b64) body parts to 
+the program _if_ and only if the signed part is a multipart 
+itself. May set $MIME to 1 and demand that people parse the 
+payload. 
+
+Make that an option?
+
+=back
+
+=head1 AUTHOR
+
+Uwe Ohse
+
+=begin man
+
+=head1 SEE ALSO
+
+upgprules(8)
+
+=end
+

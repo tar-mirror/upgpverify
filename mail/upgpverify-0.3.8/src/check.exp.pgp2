@@ -1,0 +1,262 @@
+--- upgpverify --pgp2 stops if rulesfile is missing
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+upgpverify: failed to open rules.cdb: file does not exist
+--- upgpverify --pgp2 rules work with empty ruleset
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+upgpverify: access denied: unknown user
+--- upgpverify --pgp2 --allow-is-default rules works
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+0
+--- upgpverify --pgp2 rules work with user id
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+--- upgpverify --pgp2 rules deny with user id
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+upgpverify: access denied
+--- upgpverify --pgp2 rules work with key id
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+--- upgpverify --pgp2 rules work with email address
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+--- upgpverify --pgp2 rules work without environment variables
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+0
+--- upgpverify --pgp2 rules work with multiple environment variables
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT2
+--- upgpverify --pgp2 nonexistant temporary directory
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+upgpverify: failed to open TMP: file does not exist
+--- upgpverify --pgp2 base64 0 padding
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/07 22:18 GMT using 1024-bit key, key ID 71EC423D
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+
+123456789012345678901234567890
+123456789012345678901234567890
+123456789012
+--- upgpverify --pgp2 base64 1 padding
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/07 22:17 GMT using 1024-bit key, key ID 71EC423D
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+
+123456789012345678901234567890
+123456789012345678901234567890
+12345678901
+--- upgpverify --pgp2 base64 2 padding
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/07 22:16 GMT using 1024-bit key, key ID 71EC423D
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+
+123456789012345678901234567890
+123456789012345678901234567890
+1234567890
+--- upgpverify --pgp2 sets all environment variables
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/07 22:16 GMT using 1024-bit key, key ID 71EC423D
+AUTH_KEYID=71EC423D
+AUTH_USER=Uwe Ohse <uwe@ohse.de>
+HEADER_CC=CC Header <uwe-cc@ohse.de>
+HEADER_FROM=From Headeri <uwe-from@ohse.de>
+HEADER_REPLY_TO=Reply-To Header <uwe-reply-to@ohse.de>
+HEADER_SENDER=Sender Header <uwe-sender@ohse.de>
+HEADER_SUBJECT=Subject Header
+HEADER_TO=To Header <uwe-to@ohse.de>
+--- upgpverify --pgp2 correctly recognizes signature
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+71EC423D
+0
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+
+test
+M-|M-vM-d
+
+M-|M-vM-d
+
+--- upgpverify --pgp2 empty key ring check
+upgpverify: WARNING: Can't find the right public key-- can't check signature integrity.
+upgpverify: PGP verification failed: WARNING: Can't find the right public key-- can't check signature integrity.
+--- upgpverify --pgp2 pubring parameter check
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+71EC423D
+--- upgpverify --pgp2 detect changed message
+upgpverify: WARNING: Bad signature, doesn't match file contents!
+upgpverify: Bad signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+upgpverify: PGP verification failed: WARNING: Bad signature, doesn't match file contents!^G
+--- upgpverify --pgp2 detect changed message, exit code check
+upgpverify: WARNING: Bad signature, doesn't match file contents!
+upgpverify: Bad signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+upgpverify: PGP verification failed: WARNING: Bad signature, doesn't match file contents!^G
+100
+--- upgpverify --pgp2 detect non-detached signature (exmh?)
+100
+--- upgpverify --pgp2 traditional PGP messages (not MIME)
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/23 11:30 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/23 11:30 GMT using 1024-bit key, key ID 71EC423D
+
+test
+--- upgpverify --pgp2 corrupted traditional PGP messages (not MIME)
+upgpverify: WARNING: Bad signature, doesn't match file contents!
+upgpverify: Bad signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/23 11:30 GMT using 1024-bit key, key ID 71EC423D
+upgpverify: PGP verification failed: WARNING: Bad signature, doesn't match file contents!^G
+--- upgpverify --pgp2 works with quoted-printable trad. PGP message
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/13 17:33 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+--- upgpverify --pgp2 works with dash-escape (MIME)
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/13 18:59 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+--- upgpverify --pgp2 works with dash-escape (trad.)
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/13 20:35 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+--- upgpverify --pgp2 works with input from a pipe
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/01/19 13:47 GMT using 1024-bit key, key ID 71EC423D
+TESTRESULT
+0
+--- upgpverify --pgp2 works included key block (MIME signed)
+upgpverify: For a usage summary, type:  pgp -h
+upgpverify: For more detailed help, consult the PGP User's Guide.
+upgpverify: PGP verification failed: For a usage summary, type:  pgp -h
+100
+--- upgpverify --pgp2 --require-x-pgp-sig works
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/04/13 05:23 GMT using 1024-bit key, key ID 71EC423D
+0
+upgpverify: no x-pgp-sig header
+100
+--- upgpverify --pgp2 --allow-x-pgp-sig works
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/04/13 05:23 GMT using 1024-bit key, key ID 71EC423D
+0
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/13 17:33 GMT using 1024-bit key, key ID 71EC423D
+0
+--- upgpverify --pgp2 handles missing empty line before boundary (NM)
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/04/25 05:28 GMT using 1024-bit key, key ID 71EC423D
+
+1
+2
+3
+0
+--- upgpverify --pgp2 handles missing empty line before boundary (MIME)
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/04/25 05:28 GMT using 1024-bit key, key ID 71EC423D
+Mime-Version: 1.0
+1
+2
+3
+0
+--- upgpverify --pgp2 correctly prints text/plain messages
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/04/25 08:29 GMT using 1024-bit key, key ID 71EC423D
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+plain text
+
+0
+--- upgpverify --pgp2 correctly prints multipart/mixed messages
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/04/25 08:20 GMT using 1024-bit key, key ID 71EC423D
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="UHN/qo2QbUvPLonB"
+Content-Disposition: inline
+
+
+--UHN/qo2QbUvPLonB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+plain text
+
+
+--UHN/qo2QbUvPLonB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename=2
+
+2. part
+
+--UHN/qo2QbUvPLonB--
+
+0
+--- upgpverify --pgp2 --max-len works
+upgpverify: overlong message detected
+
+100
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/04/25 08:20 GMT using 1024-bit key, key ID 71EC423D
+
+0
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/04/25 08:20 GMT using 1024-bit key, key ID 71EC423D
+
+0
+--- upgpverify --pgp2 decryption works in MIME mode
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/13 08:07 GMT using 1024-bit key, key ID 71EC423D
+AUTH_KEYID=71EC423D
+AUTH_USER=Uwe Ohse <uwe@ohse.de>
+HEADER_FROM=Uwe Ohse <uwe@ohse.de>
+HEADER_SUBJECT=encrypted message
+HEADER_TO=uwe@ohse.de
+TEST=TESTRESULT
+--- upgpverify --pgp2 decryption works in MIME mode with corrupted message
+upgpverify: ERROR: Bad ASCII armor character, line 6.
+upgpverify: ERROR: Bad ASCII armor checksum
+upgpverify: For a usage summary, type:  pgp -h
+upgpverify: For more detailed help, consult the PGP User's Guide.
+upgpverify: PGP verification failed: ERROR: Bad ASCII armor character, line 6.
+100
+--- upgpverify --pgp2 decryption works in traditional mode
+upgpverify: Good signature from user "Uwe Ohse <uwe@ohse.de>".
+upgpverify: Signature made 2001/02/13 08:07 GMT using 1024-bit key, key ID 71EC423D
+AUTH_KEYID=71EC423D
+AUTH_USER=Uwe Ohse <uwe@ohse.de>
+HEADER_FROM=Uwe Ohse <uwe@ohse.de>
+HEADER_SUBJECT=encrypted message
+HEADER_TO=uwe@ohse.de
+TEST=TESTRESULT
+--- upgpverify --pgp2 decryption works in trad. mode with corrupted message
+upgpverify: ERROR: Bad ASCII armor character, line 6.
+upgpverify: ERROR: Bad ASCII armor checksum
+upgpverify: For a usage summary, type:  pgp -h
+upgpverify: For more detailed help, consult the PGP User's Guide.
+upgpverify: PGP verification failed: ERROR: Bad ASCII armor character, line 6.
+100

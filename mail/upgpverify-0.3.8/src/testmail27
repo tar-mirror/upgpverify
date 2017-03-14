@@ -1,0 +1,17 @@
+from: x
+X: DSA-Key, signature created with gnupg
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+1
+2
+3
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.4 (OpenBSD)
+Comment: For info see http://www.gnupg.org
+
+iD8DBQE65mDiw7+Ygb6/ZrARAhS0AKCXCZ1hKZGuXVSYk663ExYQbhG9ogCcC4Gn
+nkMp0tiGkJGZr+ZMU/gx9f0=
+=Gvng
+-----END PGP SIGNATURE-----

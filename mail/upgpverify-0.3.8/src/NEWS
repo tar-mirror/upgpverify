@@ -1,0 +1,59 @@
+Version 0.3.8: 2001-09-11
+
+* added a new option --max-len to upgpverify. Default maximum length of
+  PGP messages (including encryption and signature overhead) is 1 MB
+  (older versions were limited to 65536 bytes).
+
+Version 0.3.7: 2001-09-11
+
+* work around "make check" problem with gpg-1.05 onwards.
+
+Version 0.3.6: 2001-09-11
+
+* work around "make check" problem with pgp5
+
+Version 0.3.5: 2001-09-02
+
+* in case of signed None-MIME messages the payload of the message could have
+  been written without a separating empty line between empty "header" and 
+  the payload. 
+* switched to new packaging system.
+
+Version 0.3.4: 2001-04-25
+
+* upgpverify mistreated messages without an empty line before the
+  boundary ending the payload.
+* output change: the message on $MESSAGE_FD is prefixed by 0 or
+  more MIME headers, followed by an empty line.
+
+Version 0.3.3: 2001-04-13
+
+* upgpverify was unable to check signatures of messages containing
+  PGP public key blocks.
+* added a new option, --allow-is-default, changing the behaviour
+  of upgpverify, if no matching rule is found, to "allow".
+* added two new options, --allow-x-pgp-sig and --require-x-pgp-sig,
+  for dealing with signed news articles.
+
+Version 0.3.2: 2001-02-23
+
+* allow input to be read from a pipe.
+* allow upgpverify to be called with tmp. directory argument without
+  a program to start.
+* disallowed gpg to automatically retrieve keys from keyservers.
+  Use the --allow-key-retrieve option to get the old behaviour.
+
+Version 0.3.1: 2001-02-14
+* documentation complete.
+* added a few testcases.
+
+Version 0.3.0: 2001-02-13
+* all necessary functions implemented.
+* added decryption support.
+* added many tests.
+
+Version 0.2.0: 2001-02-07 -- internal use only --
+* added gpg, pgp2 support.
+
+Version 0.1.0: 2001-01-23 -- internal use only --
+* first internal release, supports pgp5.

@@ -1,0 +1,69 @@
+#! /bin/sh
+
+if test "x$PGP2" = x ; then PGP2=pgp ; fi
+
+. docheck.vars
+
+# create PGP key ring
+mkdir .pgp
+echo >.pgp/pgp.cfg
+dd if=/dev/zero of=.pgp/randseed.bin count=1 bs=512 2>/dev/null
+
+cat >key1 <<EOF
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: PGPfreeware 5.0i for non-commercial use
+
+mQCNAzKnLSsAAAEEAMis0ZvdyKuBT3ri+AaJyqCsCH4jV9SfUBrVnK3w2YO4E9dQ
+CFWju+Nlvz3zEwQw8HPmP1CSa9mPDKqvRv/H+aWXS+K9u/niaTnQpHxlS2OOUcOT
+PN4X/wolZAtGErFg+ORNZ2o6Mgk9txgR+K2zWvRUlMziCvscaVuGq+Vx7EI9AAUR
+tBZVd2UgT2hzZSA8dXdlQG9oc2UuZGU+iQCVAwUQM8P7B1uGq+Vx7EI9AQEx+AQA
+qUNiA2KQk00yFvOXoTqZtBFocJlcXUd/jDz0thL4lZ2Bq4vEnDSGomnlumkDxy5W
+j0RvAQQULUQheXAZfE6kcqlUapIbQ9fD34A3MJ8HcJLFUOzhIfFwxEsXTFWJll8S
+SGVbXhi6YDYxxJNHwGzLVLxoIvyVj1R7qFgENFWZjO60G1V3ZSBPaHNlIDx1d2VA
+Y3NsLWdtYmgubmV0PokAlQMFEDpCilRbhqvlcexCPQEBmncEAJgckptm4jtd/f/k
+/EGNstIfJoKRpiBoUYy7SqthQ/g081cakyMKeaNB8xwOKAKD/9D8JFqPYuabUHjw
+j/iGXWy60TgS/vkQWG4RQW0KwcLVMnDHeMkYPykaL5bzYHihn1Jeqv5ovLmvgUJw
+v+G+88odRiKLWicqha2NyyFkhk6x
+=Ndj2
+-----END PGP PUBLIC KEY BLOCK-----
+EOF
+yes | $PGP2 +BatchMode -ka key1 .pgp/pubring.pgp >/dev/null 2>/dev/null
+
+# a 512 bit RSA key
+cat >key2 <<EOF
+Type Bits/KeyID    Date       User ID
+pub   512/1590171D 2001/02/13 sck2 (self check key2) <sck2@upgpverify.invalid>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: 2.6.3ia
+
+mQBNAzqI6GUAAAECAKElQui2+HFD3m0olyBgTt0LHRxCYLz+LYZ4KDGZJQQqEZVd
+PZnBa3xKXChlUGNHN2FZIQkfo4lQv5tIvRWQFx0ABRG0MHNjazIgKHNlbGYgY2hl
+Y2sga2V5MikgPHNjazJAdXBncHZlcmlmeS5pbnZhbGlkPokAVQMFEDqI6Ga/m0i9
+FZAXHQEB1W8B/1JX59HgENFdEPOYTkotoorZ2uioS0/DZNGZAdh3JsYund4t2aEs
+qZza69Qmczx3XfxYSUvQlQ8aogrBaOKTZ5U=
+=ufEO
+-----END PGP PUBLIC KEY BLOCK-----
+EOF
+yes | $PGP2 +BatchMode -ka key2 .pgp/pubring.pgp >/dev/null 2>/dev/null
+
+cat >key3 <<EOF
+Type Bits/KeyID    Date       User ID
+sec   512/1590171D 2001/02/13 sck2 (self check key2) <sck2@upgpverify.invalid>
+
+-----BEGIN PGP SECRET KEY BLOCK-----
+Version: 2.6.3ia
+
+lQD/AzqI6GUAAAECAKElQui2+HFD3m0olyBgTt0LHRxCYLz+LYZ4KDGZJQQqEZVd
+PZnBa3xKXChlUGNHN2FZIQkfo4lQv5tIvRWQFx0ABREBQYZnBAqrNe4B9zfY4h8f
+LxnJ+xJ62CTRWVsYW6hMQORq+8GZm5e3KEYK/M79Wu0bGgj0O48+Rv1zzu/oPizb
+AsFpT874G3t1hwEAEKku8JIBBarSRgdjHeig/pOy+aJfTwp/fZK7jJ7aAmMBAF+m
+KVisosH30mUOJkt79UdxN5RtZNyb6FL5tT2IrEakAP9v0+pbBt66A6SlLh0vvVgD
+asSj4s5NsOQ7Wt4BlF4tQVZptDBzY2syIChzZWxmIGNoZWNrIGtleTIpIDxzY2sy
+QHVwZ3B2ZXJpZnkuaW52YWxpZD4=
+=HvkX
+-----END PGP SECRET KEY BLOCK-----
+EOF
+yes | $PGP2 +BatchMode -ka key3 .pgp/secring.pgp >/dev/null 2>/dev/null
+echo trivial >passphrase
+

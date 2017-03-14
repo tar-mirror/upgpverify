@@ -1,0 +1,135 @@
+
+echo "--- upgpverify $PROGOPT stops if rulesfile is missing"
+rm -f rules.cdb # not really needed
+e -r rules.cdb tmp $PRINTENV AUTH_KEYID <$O/testmail1
+
+echo "--- upgpverify $PROGOPT rules work with empty ruleset"
+cat >rules.txt <<EOF
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail1
+echo "--- upgpverify $PROGOPT --allow-is-default rules works"
+cat >rules.txt <<EOF
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt
+e -r rules.cdb -A <$O/testmail1 ; echo $?
+
+echo "--- upgpverify $PROGOPT rules work with user id"
+cat >rules.txt <<EOF
+u*Uwe Ohse <uwe@ohse.de>:allow,TEST="TESTRESULT"
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt 
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail1
+echo "--- upgpverify $PROGOPT rules deny with user id"
+cat >rules.txt <<EOF
+u*Uwe Ohse <uwe@ohse.de>:deny,TEST="TESTRESULT"
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt 
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail1
+echo "--- upgpverify $PROGOPT rules work with key id"
+cat >rules.txt <<EOF
+s*71EC423D:allow,TEST="TESTRESULT"
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt 
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail1
+echo "--- upgpverify $PROGOPT rules work with email address"
+cat >rules.txt <<EOF
+a*uwe@ohse.de:allow,TEST="TESTRESULT"
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt 
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail1
+echo "--- upgpverify $PROGOPT rules work without environment variables"
+cat >rules.txt <<EOF
+a*uwe@ohse.de:allow
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt 
+e -r rules.cdb <$O/testmail1
+echo $?
+echo "--- upgpverify $PROGOPT rules work with multiple environment variables"
+cat >rules.txt <<EOF
+a*uwe@ohse.de:allow,TEST="TESTRESULT",TEST2=%TESTRESULT2%
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt 
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail1
+e -r rules.cdb tmp $PRINTENV TEST2 <$O/testmail1
+echo "--- upgpverify $PROGOPT nonexistant temporary directory"
+e -r rules.cdb tmp2 $PRINTENV TEST <$O/testmail1 2>&1 |sed 's/tmp2.*tmp/TMP/'
+echo "--- upgpverify $PROGOPT base64 0 padding"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail6
+echo "--- upgpverify $PROGOPT base64 1 padding"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail7
+echo "--- upgpverify $PROGOPT base64 2 padding"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail8
+echo "--- upgpverify $PROGOPT sets all environment variables"
+e tmp $PRINTENV <$O/testmail9 |sort  | egrep -v "^(PATH|HOME|MESSAGE_FD)"
+
+#echo "--- decr."
+#e --passphrase-fd 4 4<passphrase tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail11
+
+
+echo "--- upgpverify $PROGOPT correctly recognizes signature"
+e tmp $PRINTENV AUTH_KEYID <$O/testmail1 ; echo $?
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail1
+
+# the next one also tests unknown signatures
+$MOVE_PUBRING_AWAY
+echo "--- upgpverify $PROGOPT empty key ring check"
+e -p /dev/null tmp $PRINTENV AUTH_KEYID <$O/testmail1
+echo "--- upgpverify $PROGOPT pubring parameter check"
+e -p $ALTERNATIVE_PUBRING tmp $PRINTENV AUTH_KEYID <$O/testmail1
+$MOVE_PUBRING_BACK
+
+echo "--- upgpverify $PROGOPT detect changed message"
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail2
+echo "--- upgpverify $PROGOPT detect changed message, exit code check"
+e -r rules.cdb <$O/testmail2 ; echo $?
+echo "--- upgpverify $PROGOPT detect non-detached signature (exmh?)"
+# the output will change in the next gpg releases, i think.
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail3 2>/dev/null
+echo $?
+echo "--- upgpverify $PROGOPT traditional PGP messages (not MIME)"
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail4
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail4 
+echo "--- upgpverify $PROGOPT corrupted traditional PGP messages (not MIME)"
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail5
+echo "--- upgpverify $PROGOPT works with quoted-printable trad. PGP message"
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail10
+echo "--- upgpverify $PROGOPT works with dash-escape (MIME)"
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail23
+echo "--- upgpverify $PROGOPT works with dash-escape (trad.)"
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail24
+echo "--- upgpverify $PROGOPT works with input from a pipe"
+cat $O/testmail1 | e -r rules.cdb tmp $PRINTENV TEST
+echo $?
+echo "--- upgpverify $PROGOPT works included key block (MIME signed)"
+e -r rules.cdb tmp $PRINTENV TEST <$O/testmail25
+echo $?
+echo "--- upgpverify $PROGOPT --require-x-pgp-sig works"
+e --require-x-pgp-sig <$O/testnews1
+echo $?
+e --require-x-pgp-sig <$O/testmail10
+echo $?
+echo "--- upgpverify $PROGOPT --allow-x-pgp-sig works"
+e --allow-x-pgp-sig <$O/testnews1
+echo $?
+e --allow-x-pgp-sig <$O/testmail10
+echo $?
+echo "--- upgpverify $PROGOPT handles missing empty line before boundary (NM)"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail26 
+echo ; echo $retval
+echo "--- upgpverify $PROGOPT handles missing empty line before boundary (MIME)"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail28
+echo ; echo $retval
+echo "--- upgpverify $PROGOPT correctly prints text/plain messages"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail31
+echo ; echo $retval
+echo "--- upgpverify $PROGOPT correctly prints multipart/mixed messages"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail30
+echo ; echo $retval
+echo "--- upgpverify $PROGOPT --max-len works"
+e --max-len=30 tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail30
+echo ; echo $retval
+e --max-len=3000 <$O/testmail30  
+echo ; echo $retval
+e --max-len 0 <$O/testmail30  
+echo ; echo $retval

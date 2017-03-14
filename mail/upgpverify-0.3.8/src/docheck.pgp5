@@ -1,0 +1,35 @@
+#! /bin/sh
+
+. docheck.vars
+
+PROGOPT="--pgp5"
+EXECOPT="" # fixed: pgpv / pgpk - never saw something else.
+MOVE_PUBRING_AWAY="mv .pgp/pubring.pkr .pgp/pubring.away"
+MOVE_PUBRING_BACK="mv .pgp/pubring.away .pgp/pubring.pkr"
+ALTERNATIVE_PUBRING=".pgp/pubring.away"
+
+. $O/docheck.sub
+
+
+echo "--- upgpverify --pgp5 decryption works in MIME mode"
+cat >rules.txt <<EOF
+s*BEBF66B0:allow,TEST="TESTRESULT"
+EOF
+$O/upgprules rules.cdb rules.t <rules.txt 
+e --passphrase-fd 9 -r rules.cdb tmp $PRINTENV <$O/testmail15 9<passphrase \
+	| sort  | egrep -v "^(PATH|HOME|MESSAGE_FD)"
+echo "--- upgpverify --pgp5 decryption works in MIME mode with corrupted message"
+e --passphrase-fd 9 -r rules.cdb tmp $PRINTENV <$O/testmail16 9<passphrase
+echo $?
+echo "--- upgpverify --pgp5 decryption works in traditional mode"
+e --passphrase-fd 9 -r rules.cdb tmp $PRINTENV <$O/testmail17 9<passphrase \
+	| sort  | egrep -v "^(PATH|HOME|MESSAGE_FD)"
+echo "--- upgpverify --pgp5 decryption works in trad. mode with corrupted message"
+e --passphrase-fd 9 -r rules.cdb tmp $PRINTENV <$O/testmail18 9<passphrase
+echo $?
+echo "--- upgpverify --pgp5 handles missing empty line before boundary (DSA,NM)"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail27
+echo ; echo $?
+echo "--- upgpverify --pgp5 handles missing empty line before bound. (DSA,MIME)"
+e tmp sh -c 'cat <&$MESSAGE_FD' <$O/testmail29
+echo ; echo $?

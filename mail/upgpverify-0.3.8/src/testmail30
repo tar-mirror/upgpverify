@@ -1,0 +1,64 @@
+From uwe@fjoras.ohse.de Wed Apr 25 08:19:57 2001
+Return-Path: <uwe@fjoras.ohse.de>
+Delivered-To: uwe@fjoras.ohse.de
+Received: (qmail 32097 invoked from network); 25 Apr 2001 08:19:57 -0000
+Received: from ohse8.du.gtn.com (HELO ohse.de) (qmailr@194.77.219.24)
+  by fjoras.ohse.de with SMTP; 25 Apr 2001 08:19:57 -0000
+Received: (qmail 27133 invoked by uid 1000); 25 Apr 2001 08:19:56 -0000
+Delivered-To: uwe@ohse.de
+Received: (qmail 3295 invoked from network); 25 Apr 2001 08:19:56 -0000
+Received: from fjoras.ohse.de (qmailr@194.77.219.23)
+  by ohse8.du.gtn.com with SMTP; 25 Apr 2001 08:19:56 -0000
+Received: (qmail 24826 invoked by uid 1000); 25 Apr 2001 08:19:55 -0000
+Date: Wed, 25 Apr 2001 08:19:55 +0000
+From: Uwe Ohse <uwe@ohse.de>
+To: uwe@ohse.de
+Subject: multipart/signed over multipart/mixed
+Message-ID: <20010425081955.P31809@ohse.de>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-md5;
+	protocol="application/pgp-signature"; boundary="sHrvAb52M6C8blB9"
+Content-Disposition: inline
+User-Agent: Mutt/1.2.5i-nntp2
+X-Url: http://www.ohse.de/uwe/
+Status: RO
+Content-Length: 809
+
+
+--sHrvAb52M6C8blB9
+Content-Type: multipart/mixed; boundary="UHN/qo2QbUvPLonB"
+Content-Disposition: inline
+
+
+--UHN/qo2QbUvPLonB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+plain text
+
+
+--UHN/qo2QbUvPLonB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename=2
+
+2. part
+
+--UHN/qo2QbUvPLonB--
+
+--sHrvAb52M6C8blB9
+Content-Type: application/pgp-signature
+Content-Disposition: inline
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.4 (OpenBSD)
+Comment: For info see http://www.gnupg.org
+
+iQCVAwUBOuaIq1uGq+Vx7EI9AQFFKgP/To2y1ZFgZNMsnpBx6H0+ni2ZeF1sfOFY
+toJg0qQzF/5SscdYKm72x1BPIL4uzvOcs4HFQ+goipYWRn+8Bd354Qt3g9EkNf/E
+7yCMj+e9JPjXioGTubQOPA1IdPkR7aSeOj20ZsLDP8nwm0l6OcIP/hidQF14PG8f
+A9+gj2H9qA4=
+=TyVk
+-----END PGP SIGNATURE-----
+
+--sHrvAb52M6C8blB9--
+
